@@ -33,8 +33,8 @@ defmodule Cldr.Calendar.Format do
     range = 0..5
 
     date
-    |> weeks(range, format_module, options)
-    |> format_module.format_month(year, month, options)
+    |> weeks(range, year, month, format_module, options)
+    |> format_module.format_month(year, month, date, options)
   end
 
   def month(year, _month, date, :week, format_module, options) do
@@ -49,30 +49,30 @@ defmodule Cldr.Calendar.Format do
     range = 0..(weeks_in_month - 1)
 
     date
-    |> weeks(range, format_module, options)
-    |> format_module.format_month(year, month, options)
+    |> weeks(range, year, month, format_module, options)
+    |> format_module.format_month(year, month, date, options)
   end
 
-  defp weeks(date, range, format_module, options) do
+  defp weeks(date, range, year, month, format_module, options) do
     week = Calendar.week(date)
 
     for i <- range do
       week
       |> Calendar.plus(:weeks, i)
-      |> week(format_module, options)
+      |> week(year, month, date, format_module, options)
     end
   end
 
-  defp week(week, format_module, options) do
+  defp week(week, year, month, date, format_module, options) do
     week_number = Calendar.week_of_year(week.first)
 
-    days(week, format_module, options)
-    |> format_module.format_week(week_number, options)
+    days(week, year, month, format_module, options)
+    |> format_module.format_week(year, month, date, week_number, options)
   end
 
-  defp days(week, format_module, options) do
-    for day <- week do
-      format_module.format_day(day, options)
+  defp days(week, year, month, format_module, options) do
+    for date <- week do
+      format_module.format_day(date, year, month, options)
     end
   end
 
