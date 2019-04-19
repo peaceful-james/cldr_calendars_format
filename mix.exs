@@ -1,11 +1,11 @@
-defmodule Cldr.Calendar.HTML.MixProject do
+defmodule Cldr.Calendar.Format.MixProject do
   use Mix.Project
 
   @version "0.1.0"
 
   def project do
     [
-      app: :ex_cldr_calendars_html,
+      app: :ex_cldr_calendars_format,
       version: @version,
       elixir: "~> 1.5",
       deps: deps(),
