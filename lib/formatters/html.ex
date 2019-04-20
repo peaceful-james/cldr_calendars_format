@@ -4,18 +4,6 @@ defmodule Cldr.Calendar.Formatter.HTML do
   @default_calendar_class "cldr_calendar"
   @week_prefix "W"
 
-  require EEx
-  EEx.function_from_file(:defp, :day_html, "priv/template/day.eex", [:day, :class])
-  EEx.function_from_file(:defp, :week_html, "priv/template/week.eex", [:days])
-
-  EEx.function_from_file(:defp, :month_html, "priv/template/month.eex", [
-    :caption,
-    :id,
-    :class,
-    :day_names,
-    :weeks
-  ])
-
   def format_year(_formatted_months, _year, _options) do
 
   end
@@ -70,5 +58,17 @@ defmodule Cldr.Calendar.Formatter.HTML do
   defp day_names(day_names, _options) do
     Enum.map(day_names, &day_html(&1, "day_name"))
   end
+
+  require EEx
+  EEx.function_from_file(:defp, :day_html, "priv/template/day.eex", [:day, :class])
+  EEx.function_from_file(:defp, :week_html, "priv/template/week.eex", [:days])
+
+  EEx.function_from_file(:defp, :month_html, "priv/template/month.eex", [
+    :caption,
+    :id,
+    :class,
+    :day_names,
+    :weeks
+  ])
 
 end
