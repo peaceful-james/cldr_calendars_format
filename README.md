@@ -100,15 +100,16 @@ config :ex_cldr,
 
 ## Installation
 
-This package can be installed by adding `cldr_calendars_format` to your list of dependencies in `mix.exs`:
+This package can be installed by adding `ex_cldr_calendars_format` to your list of dependencies in `mix.exs`:
 
 ```elixir
 def deps do
   [
-    {:cldr_calendars_format, "~> 0.1.0"}
+    ...
+    {:ex_cldr_calendars_format, "~> 0.1.0"}
   ]
 end
 ```
 
-Documentation can be found at [https://hexdocs.pm/cldr_calendars_format](https://hexdocs.pm/cldr_calendars_format).
+Documentation can be found at [https://hexdocs.pm/ex_cldr_calendars_format](https://hexdocs.pm/ex_cldr_calendars_format).
 
