@@ -11,7 +11,6 @@ defmodule Cldr.Calendar.Formatter do
               formatted_weeks :: String.t(),
               year :: Date.year(),
               month :: Date.month(),
-              date :: Date.t(),
               options :: Keyword.t() | Options.t()
             ) :: String.t()
 
@@ -19,7 +18,6 @@ defmodule Cldr.Calendar.Formatter do
               formatted_days :: String.t(),
               year :: Date.year(),
               month :: Date.month(),
-              date :: Date.t(),
               week :: {Date.year(), pos_integer},
               options :: Options.t()
             ) :: String.t()

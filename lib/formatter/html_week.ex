@@ -1,9 +1,9 @@
 defmodule Cldr.Calendar.Formatter.HTML.Week do
   @behaviour Cldr.Calendar.Formatter
 
-  alias Cldr.Calendar.Format.Options
   alias Cldr.Calendar.Formatter
   alias Cldr.Calendar.Formatter.HTML.Basic
+  alias Cldr.Calendar.Formatter.Options
 
   @week_class "week"
   @week_prefix "W"
@@ -15,15 +15,15 @@ defmodule Cldr.Calendar.Formatter.HTML.Week do
   defdelegate format_day(date, year, month, options), to: Formatter.HTML.Basic
 
   @impl true
-  def format_month(formatted_weeks, year, month, date, options) do
+  def format_month(formatted_weeks, year, month, options) do
     %Options{caption: caption, id: id, class: class} = options
-    caption = caption || Basic.caption(year, month, date, options)
+    caption = caption || Basic.caption(year, month, options)
     day_names = [Basic.day_html(" ", nil) | Basic.day_names(options)]
     Basic.month_html(caption, id, class, day_names, formatted_weeks)
   end
 
   @impl true
-  def format_week(formatted_days, _year, _month, _date, {_, week_number}, options) do
+  def format_week(formatted_days, _year, _month, {_, week_number}, options) do
     week_indicator = week_indicator(week_number, options)
     Basic.week_html([week_indicator | formatted_days])
   end

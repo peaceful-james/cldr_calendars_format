@@ -61,7 +61,7 @@ defmodule Cldr.Calendar.Format.MixProject do
   defp deps do
     [
       {:ex_cldr_numbers, "~> 2.6"},
-      {:ex_cldr_calendars, path: "../cldr_calendars"},
+      {:ex_cldr_calendars, "~> 0.5"},
       {:nimble_csv, "~> 0.5", only: [:dev, :test, :release]},
       {:jason, "~> 1.0"},
       {:ex_doc, "~> 0.18", only: [:release, :dev]},

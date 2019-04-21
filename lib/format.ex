@@ -1,6 +1,6 @@
 defmodule Cldr.Calendar.Format do
   alias Cldr.Calendar
-  alias Cldr.Calendar.Format.Options
+  alias Cldr.Calendar.Formatter.Options
 
   def year(year, options \\ [])
 
@@ -47,7 +47,7 @@ defmodule Cldr.Calendar.Format do
 
     date
     |> weeks(range, year, month, options)
-    |> formatter.format_month(year, month, date, options)
+    |> formatter.format_month(year, month, options)
   end
 
   defp month(year, _month, date, :week, options) do
@@ -63,7 +63,7 @@ defmodule Cldr.Calendar.Format do
 
     date
     |> weeks(range, year, month, options)
-    |> formatter.format_month(year, month, date, options)
+    |> formatter.format_month(year, month, options)
   end
 
   defp weeks(date, range, year, month, options) do
@@ -72,16 +72,16 @@ defmodule Cldr.Calendar.Format do
     for i <- range do
       week
       |> Calendar.plus(:weeks, i)
-      |> week(year, month, date, options)
+      |> week(year, month, options)
     end
   end
 
-  defp week(week, year, month, date, options) do
+  defp week(week, year, month, options) do
     %Options{formatter: formatter} = options
     week_number = Calendar.week_of_year(week.first)
 
     days(week, year, month, options)
-    |> formatter.format_week(year, month, date, week_number, options)
+    |> formatter.format_week(year, month, week_number, options)
   end
 
   defp days(week, year, month, options) do

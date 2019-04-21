@@ -1,4 +1,4 @@
-defmodule Cldr.Calendar.Format.Options do
+defmodule Cldr.Calendar.Formatter.Options do
   defstruct [
     :calendar,
     :number_system,

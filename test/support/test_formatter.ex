@@ -8,12 +8,12 @@ defmodule Cldr.Calendar.Test.Formatter do
   end
 
   @impl true
-  def format_month(formatted_weeks, year, month, _date, _options) do
+  def format_month(formatted_weeks, year, month, _options) do
     %{year: year, month: month, weeks: formatted_weeks}
   end
 
   @impl true
-  def format_week(formatted_days, year, month, _date, {_, week_number}, _options) do
+  def format_week(formatted_days, year, month, {_, week_number}, _options) do
     %{year: year, month: month, days: formatted_days, week_number: week_number}
   end
 

@@ -1,7 +1,7 @@
 defmodule Cldr.Calendar.Formatter.HTML.Basic do
   @behaviour Cldr.Calendar.Formatter
 
-  alias Cldr.Calendar.Format.Options
+  alias Cldr.Calendar.Formatter.Options
 
   @weekend_class "weekend"
   @weekday_class "weekday"
@@ -18,15 +18,15 @@ defmodule Cldr.Calendar.Formatter.HTML.Basic do
   end
 
   @impl true
-  def format_month(formatted_weeks, year, month, date, options) do
+  def format_month(formatted_weeks, year, month, options) do
     %Options{caption: caption, id: id, class: class} = options
 
-    caption = caption || caption(year, month, date, options)
+    caption = caption || caption(year, month, options)
     month_html(caption, id, class, day_names(options), formatted_weeks)
   end
 
   @impl true
-  def format_week(formatted_days, _year, _month, _date, _week_number, _options) do
+  def format_week(formatted_days, _year, _month, _week_number, _options) do
     week_html(formatted_days)
   end
 
@@ -55,13 +55,20 @@ defmodule Cldr.Calendar.Formatter.HTML.Basic do
     day_html(date.day, class)
   end
 
-  def caption(year, _month, date, _options) do
+  def caption(year, month, options) do
+    %Options{calendar: calendar, number_system: number_system, locale: locale, backend: backend} = options
+
     month_name =
-      date
-      |> Cldr.Calendar.localize(:month, format: :wide)
+      month
+      |> Cldr.Calendar.localize(:months, :wide, calendar, backend, locale)
       |> Options.encode
 
-    month_name <> " " <> to_string(year)
+    year_string =
+      year
+      |> Cldr.Number.to_string!(backend, locale: locale, number_system: number_system)
+      |> Options.encode
+
+    month_name <> " " <> year_string
   end
 
   def day_names(options) do
