@@ -5,46 +5,42 @@ defmodule Cldr.Calendar.Formatter.HTML.Week do
   alias Cldr.Calendar.Formatter
   alias Cldr.Calendar.Formatter.HTML.Basic
 
-  @default_calendar_class "cldr_calendar"
   @week_class "week"
   @week_prefix "W"
 
+  @impl true
   defdelegate format_year(formatted_months, year, options), to: Formatter.HTML.Basic
+
+  @impl true
   defdelegate format_day(date, year, month, options), to: Formatter.HTML.Basic
 
+  @impl true
   def format_month(formatted_weeks, year, month, date, options) do
-    %Options{locale: locale, backend: backend} = options
-
-    caption = Map.get(options, :caption) || Basic.caption(year, month, date, options)
-    class = Map.get(options, :class) || @default_calendar_class
-    id = Map.get(options, :id, nil)
-
-    day_names =
-      date
-      |> Cldr.Calendar.localize(:days_of_week, backend: backend, locale: locale)
-      |> Basic.day_names(date, options)
-
-    day_names = [Basic.day_html(" ", nil) | day_names]
+    %Options{caption: caption, id: id, class: class} = options
+    caption = caption || Basic.caption(year, month, date, options)
+    day_names = [Basic.day_html(" ", nil) | Basic.day_names(options)]
     Basic.month_html(caption, id, class, day_names, formatted_weeks)
   end
 
+  @impl true
   def format_week(formatted_days, _year, _month, _date, {_, week_number}, options) do
+    week_indicator = week_indicator(week_number, options)
+    Basic.week_html([week_indicator | formatted_days])
+  end
+
+  defp week_indicator(week_number, options) do
     %Options{locale: locale, backend: backend, number_system: number_system} = options
 
     week_number =
       week_number
       |> Cldr.Number.to_string!(backend, locale: locale, number_system: number_system)
       |> lpad
+      |> Options.encode
 
-    week_indicator = Basic.day_html(@week_prefix <> week_number, @week_class)
-    Basic.week_html([week_indicator | formatted_days])
+    Basic.day_html(@week_prefix <> week_number, @week_class)
   end
 
-  defp lpad(<<x::bytes-1>>) do
-    "0" <> x
-  end
+  defp lpad(<<x::bytes-1>>), do: "0" <> x
+  defp lpad(x), do: x
 
-  defp lpad(x) do
-    x
-  end
 end

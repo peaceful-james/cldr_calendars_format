@@ -9,13 +9,15 @@ defmodule Cldr.Calendar.Format.Options do
     :caption,
     :class,
     :id,
-    :today
+    :today,
+    :day_names
   ]
 
   alias Cldr.Number
 
   @default_calendar Cldr.Calendar.Gregorian
   @default_format_module Cldr.Calendar.Formatter.HTML.Basic
+  @default_calendar_class "cldr_calendar"
 
   def validate_options(options) do
     with {:ok, options} <- validate_calendar(options, :calendar, @default_calendar),
@@ -25,6 +27,12 @@ defmodule Cldr.Calendar.Format.Options do
          {:ok, options} <- validate_territory(options, :territory, Cldr.get_locale().territory),
          {:ok, options} <- validate_number_system(options, :number_system, :default),
          {:ok, options} <- validate_today(options, :today, today()) do
+
+      options =
+        options
+        |> Keyword.put_new(:class, @default_calendar_class)
+        |> Keyword.put_new(:day_names, day_names(options))
+
       {:ok, struct(__MODULE__, options)}
     end
   end
@@ -93,5 +101,17 @@ defmodule Cldr.Calendar.Format.Options do
 
   defp today() do
     Date.utc_today()
+  end
+
+  defp day_names(options) do
+    {:ok, date} = Date.new(2000, 1, 1, options[:calendar])
+
+    date
+    |> Cldr.Calendar.localize(:days_of_week, backend: options[:backend], locale: options[:locale])
+    |> Enum.map(fn {day, name} -> {day, encode(name)} end)
+  end
+
+  def encode(name) do
+    name
   end
 end
