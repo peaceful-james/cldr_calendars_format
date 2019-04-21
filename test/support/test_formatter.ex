@@ -1,7 +1,6 @@
 defmodule Cldr.Calendar.Test.Formatter do
   @behaviour Cldr.Calendar.Formatter
 
-
   @impl true
   def format_year(formatted_months, year, options) do
     %{year: year, months: formatted_months, options: options}
@@ -21,5 +20,4 @@ defmodule Cldr.Calendar.Test.Formatter do
   def format_day(date, _year, _month, _options) do
     date
   end
-
 end

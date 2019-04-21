@@ -35,12 +35,10 @@ defmodule Cldr.Calendar.Formatter.HTML.Week do
       week_number
       |> Cldr.Number.to_string!(backend, locale: locale, number_system: number_system)
       |> lpad
-      |> Options.encode
 
     Basic.day_html(@week_prefix <> week_number, @week_class)
   end
 
   defp lpad(<<x::bytes-1>>), do: "0" <> x
   defp lpad(x), do: x
-
 end

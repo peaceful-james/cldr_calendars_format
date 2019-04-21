@@ -44,7 +44,6 @@ defmodule Cldr.Calendar.Formatter.HTML.Basic do
     formatted_day =
       date.day
       |> Cldr.Number.to_string!(backend, locale: locale, number_system: number_system)
-      |> Options.encode
 
     day_html(formatted_day, class)
   end
@@ -56,17 +55,20 @@ defmodule Cldr.Calendar.Formatter.HTML.Basic do
   end
 
   def caption(year, month, options) do
-    %Options{calendar: calendar, number_system: number_system, locale: locale, backend: backend} = options
+    %Options{calendar: calendar, number_system: number_system, locale: locale, backend: backend} =
+      options
 
     month_name =
       month
       |> Cldr.Calendar.localize(:months, :wide, calendar, backend, locale)
-      |> Options.encode
 
     year_string =
       year
-      |> Cldr.Number.to_string!(backend, locale: locale, number_system: number_system)
-      |> Options.encode
+      |> Cldr.Number.to_string!(backend,
+        locale: locale,
+        format: "####",
+        number_system: number_system
+      )
 
     month_name <> " " <> year_string
   end
@@ -75,10 +77,10 @@ defmodule Cldr.Calendar.Formatter.HTML.Basic do
     %Options{territory: territory, day_names: day_names} = options
     weekdays = Cldr.Calendar.weekdays(territory)
 
-    Enum.map day_names, fn {day, name} ->
+    Enum.map(day_names, fn {day, name} ->
       class = day_name_class(day in weekdays, @day_name_class)
       day_html(name, class)
-    end
+    end)
   end
 
   defp class_from_date(default, date, options) do

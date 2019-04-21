@@ -27,7 +27,6 @@ defmodule Cldr.Calendar.Formatter.Options do
          {:ok, options} <- validate_territory(options, :territory, Cldr.get_locale().territory),
          {:ok, options} <- validate_number_system(options, :number_system, :default),
          {:ok, options} <- validate_today(options, :today, today()) do
-
       options =
         options
         |> Keyword.put_new(:class, @default_calendar_class)
@@ -108,10 +107,5 @@ defmodule Cldr.Calendar.Formatter.Options do
 
     date
     |> Cldr.Calendar.localize(:days_of_week, backend: options[:backend], locale: options[:locale])
-    |> Enum.map(fn {day, name} -> {day, encode(name)} end)
-  end
-
-  def encode(name) do
-    name
   end
 end
