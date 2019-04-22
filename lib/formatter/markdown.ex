@@ -1,4 +1,6 @@
 defmodule Cldr.Calendar.Formatter.Markdown do
+  @moduledoc false
+
   @behaviour Cldr.Calendar.Formatter
 
   alias Cldr.Calendar.Formatter.HTML.Basic

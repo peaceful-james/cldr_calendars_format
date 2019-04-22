@@ -1,4 +1,6 @@
 defmodule Cldr.Calendar.Formatter.HTML.Week do
+  @moduledoc false
+
   @behaviour Cldr.Calendar.Formatter
 
   alias Cldr.Calendar.Formatter

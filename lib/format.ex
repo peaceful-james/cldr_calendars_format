@@ -1,6 +1,38 @@
 defmodule Cldr.Calendar.Format do
+  @moduledoc """
+  Formatting functions for calendars
+
+  """
+
   alias Cldr.Calendar
   alias Cldr.Calendar.Formatter.Options
+
+  @doc """
+  Format one calendar year
+
+  ## Arguments
+
+  * `year` is the year of the calendar
+    to be formatted
+
+  * `options` is a `Cldr.Calendar.Formatter.Options`
+    struct or a `Keyword.t` list of options.
+
+  ## Returns
+
+  * The result of the `format_year/3` callback of
+    the configured formatter
+
+  ## Examples
+
+    Cldr.Calendar.Format.year(2019)
+
+    Cldr.Calendar.Format.year(2019, formatter: Cldr.Calendar.Formatter.Markdown)
+
+    Cldr.Calendar.Format.year(2019, formatter: Cldr.Calendar.Formatter.Markdown, locale: "fr"
+
+  """
+  @spec year(Date.year(), Options.t | Keyword.t) :: any()
 
   def year(year, options \\ [])
 
@@ -24,6 +56,36 @@ defmodule Cldr.Calendar.Format do
       month(year, month, options)
     end
   end
+
+  @doc """
+  Format one calendar year and month
+
+  ## Arguments
+
+  * `year` is the year of the calendar
+    to be formatted
+
+  * `month` is the month of the calendar
+    to be formatted
+
+  * `options` is a `Cldr.Calendar.Formatter.Options`
+    struct or a `Keyword.t` list of options.
+
+  ## Returns
+
+  * The result of the `format_month/4` callback of
+    the configured formatter
+
+  ## Examples
+
+    Cldr.Calendar.Format.month(2019, 4)
+
+    Cldr.Calendar.Format.month(2019, 4, formatter: Cldr.Calendar.Formatter.HTML.Basic)
+
+    Cldr.Calendar.Format.month(2019, 4, formatter: Cldr.Calendar.Formatter.Markdown, locale: "fr"
+
+  """
+  @spec month(Date.year(), Date.month(), Options.t | Keyword.t) :: any()
 
   def month(year, month, options \\ [])
 

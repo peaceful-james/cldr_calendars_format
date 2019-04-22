@@ -10,7 +10,7 @@ defmodule Cldr.Calendar.Format.MixProject do
       elixir: "~> 1.5",
       deps: deps(),
       elixirc_paths: elixirc_paths(Mix.env()),
-      name: "Cldr Calendars HTML",
+      name: "Cldr Calendars Format",
       source_url: "https://github.com/kipcole9/cldr_calendars_format",
       docs: docs(),
       build_embedded: Mix.env() == :prod,
