@@ -129,7 +129,7 @@ defmodule Cldr.Calendar.Format do
   end
 
   defp weeks(date, range, year, month, options) do
-    week = Calendar.week(date)
+    week = Cldr.Calendar.Interval.week(date)
 
     for i <- range do
       week

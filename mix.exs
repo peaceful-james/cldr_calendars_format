@@ -1,7 +1,7 @@
 defmodule Cldr.Calendar.Format.MixProject do
   use Mix.Project
 
-  @version "0.1.0"
+  @version "0.2.0"
 
   def project do
     [
@@ -46,6 +46,7 @@ defmodule Cldr.Calendar.Format.MixProject do
     [
       maintainers: ["Kip Cole"],
       licenses: ["Apache 2.0"],
+      logo: "logo.png",
       links: links(),
       files: [
         "lib",
@@ -61,12 +62,12 @@ defmodule Cldr.Calendar.Format.MixProject do
 
   defp deps do
     [
-      {:ex_cldr_numbers, "~> 2.6"},
-      {:ex_cldr_calendars, "~> 0.5"},
+      {:ex_cldr_numbers, "~> 2.7"},
+      {:ex_cldr_calendars, "~> 1.0"},
       {:nimble_csv, "~> 0.5", only: [:dev, :test, :release]},
       {:jason, "~> 1.0"},
       {:ex_doc, "~> 0.18", only: [:release, :dev]},
-      {:dialyxir, "~> 1.0.0-rc.4", only: [:dev], runtime: false}
+      {:dialyxir, "~> 1.0.0-rc", only: [:dev], runtime: false}
     ]
   end
 
