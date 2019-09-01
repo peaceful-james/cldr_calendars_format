@@ -10,8 +10,8 @@ defmodule Cldr.Calendar.Format.MixProject do
       elixir: "~> 1.5",
       deps: deps(),
       elixirc_paths: elixirc_paths(Mix.env()),
-      name: "Cldr Calendars HTML",
-      source_url: "https://github.com/kipcole9/cldr_calendars_html",
+      name: "Cldr Calendars Format",
+      source_url: "https://github.com/kipcole9/cldr_calendars_format",
       docs: docs(),
       build_embedded: Mix.env() == :prod,
       start_permanent: Mix.env() == :prod,
@@ -31,7 +31,8 @@ defmodule Cldr.Calendar.Format.MixProject do
 
   defp description do
     """
-    Calendars HTML formatting for localised and generalised calendars.
+    Customizable calendar formatting (HTML, Markdown and custom) for localised and generalised
+    calendars based upon ex_cldr_calendars.
     """
   end
 
@@ -61,7 +62,7 @@ defmodule Cldr.Calendar.Format.MixProject do
   defp deps do
     [
       {:ex_cldr_numbers, "~> 2.6"},
-      {:ex_cldr_calendars, path: "../cldr_calendars"},
+      {:ex_cldr_calendars, "~> 0.5"},
       {:nimble_csv, "~> 0.5", only: [:dev, :test, :release]},
       {:jason, "~> 1.0"},
       {:ex_doc, "~> 0.18", only: [:release, :dev]},
@@ -71,10 +72,10 @@ defmodule Cldr.Calendar.Format.MixProject do
 
   def links do
     %{
-      "GitHub" => "https://github.com/kipcole9/cldr_calendars_html",
-      "Readme" => "https://github.com/kipcole9/cldr_calendars_html/blob/v#{@version}/README.md",
+      "GitHub" => "https://github.com/kipcole9/cldr_calendars_format",
+      "Readme" => "https://github.com/kipcole9/cldr_calendars_format/blob/v#{@version}/README.md",
       "Changelog" =>
-        "https://github.com/kipcole9/cldr_calendars_html/blob/v#{@version}/CHANGELOG.md"
+        "https://github.com/kipcole9/cldr_calendars_format/blob/v#{@version}/CHANGELOG.md"
     }
   end
 

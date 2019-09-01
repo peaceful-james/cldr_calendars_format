@@ -1,9 +1,7 @@
-<table class=<%= inspect class%> <%= if id, do: "id=#{inspect id}", else: "" %>>
-  <caption>
-    <%= caption %>
-  </caption
+<table class=<%= inspect class%><%= if id, do: "id=#{inspect id}", else: "" %>>
+  <caption><%= caption %></caption
   <th>
-    <%= day_names %>
+<%= day_names %>
   </th>
-  <%= weeks %>
+<%= weeks %>
 </table>
