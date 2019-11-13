@@ -8,7 +8,6 @@ defmodule Cldr.Calendar.Format.MixProject do
       app: :ex_cldr_calendars_format,
       version: @version,
       elixir: "~> 1.5",
-      licenses: ["Apache-2.0"],
       deps: deps(),
       elixirc_paths: elixirc_paths(Mix.env()),
       name: "Cldr Calendars Format",
