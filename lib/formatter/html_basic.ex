@@ -65,7 +65,6 @@ defmodule Cldr.Calendar.Formatter.HTML.Basic do
     month_name =
       date
       |> Cldr.Calendar.localize(:month, format: :wide)
-      |> IO.inspect
 
     year_string =
       year
