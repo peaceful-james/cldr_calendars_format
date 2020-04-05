@@ -60,9 +60,12 @@ defmodule Cldr.Calendar.Formatter.HTML.Basic do
     %Options{calendar: calendar, number_system: number_system, locale: locale, backend: backend} =
       options
 
+    {:ok, date} = Date.new(year, month, 1, calendar)
+
     month_name =
-      month
-      |> Cldr.Calendar.localize(:months, :wide, calendar, backend, locale)
+      date
+      |> Cldr.Calendar.localize(:month, format: :wide)
+      |> IO.inspect
 
     year_string =
       year

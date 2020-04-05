@@ -68,4 +68,30 @@ defmodule Cldr.Calendar.Format.Test do
                {6, "Sat"}
              ]
   end
+
+  test "Weeks that don't start on Monday" do
+    defmodule MyApp.Calendar.US do
+      @moduledoc """
+      This is the same as a gregorian Calendar, but with Sunday starting the week.
+      """
+
+      use Cldr.Calendar.Base.Month, day_of_week: Cldr.Calendar.sunday(), cldr_backend: MyApp.Cldr
+    end
+
+    options = [
+        formatter: Cldr.Calendar.Test.Formatter,
+        caption: "My Caption",
+        calendar: MyApp.Calendar.US
+    ]
+
+    first_day =
+      Cldr.Calendar.Format.month(2020, 3, options)
+      |> Map.get(:weeks)
+      |> hd
+      |> Map.get(:days)
+      |> hd
+      |> Cldr.Calendar.day_of_week
+
+    assert first_day == 7
+  end
 end

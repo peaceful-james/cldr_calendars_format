@@ -96,8 +96,8 @@ defmodule Cldr.Calendar.Formatter.Options do
     with {:ok, options} <- validate_calendar(options, :calendar, @default_calendar),
          {:ok, options} <- validate_backend(options, :backend, Cldr.default_backend()),
          {:ok, options} <- validate_formatter(options, :formatter, @default_format_module),
-         {:ok, options} <- validate_locale(options, :locale, Cldr.get_locale()),
-         {:ok, options} <- validate_territory(options, :territory, Cldr.get_locale().territory),
+         {:ok, options} <- validate_locale(options, :locale, options[:backend].get_locale()),
+         {:ok, options} <- validate_territory(options, :territory, options[:locale].territory),
          {:ok, options} <- validate_number_system(options, :number_system, :default),
          {:ok, options} <- validate_today(options, :today, today()) do
       options =
