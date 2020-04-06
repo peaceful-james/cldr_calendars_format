@@ -62,8 +62,10 @@ defmodule Cldr.Calendar.Format.MixProject do
 
   defp deps do
     [
+      {:ex_cldr, path: "../cldr", override: true},
       {:ex_cldr_numbers, "~> 2.7"},
-      {:ex_cldr_calendars, "~> 1.7"},
+      {:ex_cldr_calendars, path: "../cldr_calendars"},
+      {:cldr_utils, github: "elixir-cldr/cldr_utils", override: true},
       {:nimble_csv, "~> 0.5", only: [:dev, :test, :release]},
       {:jason, "~> 1.0"},
       {:ex_doc, "~> 0.18", only: [:release, :dev]},
