@@ -7,21 +7,24 @@ defmodule Cldr.Calendar.Format.Test do
       Cldr.Calendar.Format.month(2019, 4,
         formatter: Cldr.Calendar.Test.Formatter,
         caption: "My Caption",
-        calendar: Cldr.Calendar.Gregorian
+        calendar: Cldr.Calendar.Gregorian,
+        private: "My private options"
       )
 
     gregorian =
       Cldr.Calendar.Format.year(2019,
         formatter: Cldr.Calendar.Test.Formatter,
         caption: "My Caption",
-        calendar: Cldr.Calendar.Gregorian
+        calendar: Cldr.Calendar.Gregorian,
+        private: "My private options"
       )
 
     nrf =
       Cldr.Calendar.Format.year(2019,
         formatter: Cldr.Calendar.Test.Formatter,
         caption: "My Caption",
-        calendar: Cldr.Calendar.NRF
+        calendar: Cldr.Calendar.NRF,
+        private: "My private options"
       )
 
     {:ok, month: month, gregorian: gregorian, nrf: nrf}
@@ -33,6 +36,11 @@ defmodule Cldr.Calendar.Format.Test do
     assert formatted[:month] == 4
     assert length(formatted[:weeks]) == 6
     assert hd(formatted[:weeks])[:week_number] == 14
+  end
+
+  test "pass private options through", context do
+    formatted = context[:month]
+    assert formatted[:options].private == "My private options"
   end
 
   test "we have 12 months and a caption", context do
@@ -72,7 +80,7 @@ defmodule Cldr.Calendar.Format.Test do
   test "Weeks that don't start on Monday" do
     defmodule MyApp.Calendar.US do
       @moduledoc """
-      This is the same as a gregorian Calendar, but with Sunday starting the week.
+      This is the same as a gregorian calendar, but with Sunday starting the week.
       """
 
       use Cldr.Calendar.Base.Month, day_of_week: Cldr.Calendar.sunday(), cldr_backend: MyApp.Cldr

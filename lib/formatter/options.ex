@@ -40,6 +40,12 @@ defmodule Cldr.Calendar.Formatter.Options do
     defined by the `:formatter`.  It is most commonly
     used to apply an HTML id to an enclosing tag.
 
+  * `:private` is for your private use in your formatter.
+    For example if you wanted to pass a selected day and
+    format it differently, you could provide
+    `options.private = %{selected: ~D[2020-04-05]}` and
+    take advantage of it while formatting the days.
+
   * `:today` is any `Date.t` that represents today.
     It is commonly used to allow a formatting to
     appropriately format a date that is today
@@ -64,7 +70,8 @@ defmodule Cldr.Calendar.Formatter.Options do
     :class,
     :id,
     :today,
-    :day_names
+    :day_names,
+    :private
   ]
 
   @typedoc """
@@ -82,6 +89,7 @@ defmodule Cldr.Calendar.Formatter.Options do
     class: String.t | nil,
     id: String.t | nil,
     today: Date.t(),
+    private: any(),
     day_names: [{1..7, String.t}]
   }
 
