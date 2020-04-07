@@ -20,25 +20,27 @@ defmodule Cldr.Calendar.Formatter.Options do
   * `:locale` is any locale returned by `Cldr.validate_locale/1`.
     The default is `Cldr.get_locale()`.
 
-  * `:number_system` is any valid number system
-    for the given locale. Available number systems
-    for a locale are returned by
+  * `:number_system` is any valid number system name
+    or number system type for the given locale.
+    Available number systems for a locale are returned by
     `Cldr.Number.System.number_systems_for(locale, backend)`.
     The default is `:default`.
 
   * `:territory` is any territory returned by `Cldr.validate_territory/1`
-    The default is the territory defined in the `locale` struct.
+    The default is `Cldr.Locale.territory_from_locale/1`.
 
   * `:caption` is a caption to be applied in any way defined
     by the `:formatter`. The default is `nil`.
 
   * `:class` is a class name that can be used any way
     defined by the `:formatter`.  It is most commonly
-    used to apply an HTML class to an enclosing tag.
+    used to apply an HTML class to an enclosing tag. The
+    default is `Cldr.Calendar.Format.default_calendar_css_class/0`
 
   * `:id` is an id that can be used any way
     defined by the `:formatter`.  It is most commonly
-    used to apply an HTML id to an enclosing tag.
+    used to apply an HTML id to an enclosing tag. The
+    default is `nil`
 
   * `:private` is for your private use in your formatter.
     For example if you wanted to pass a selected day and
@@ -49,7 +51,8 @@ defmodule Cldr.Calendar.Formatter.Options do
   * `:today` is any `Date.t` that represents today.
     It is commonly used to allow a formatting to
     appropriately format a date that is today
-    differently to other days on a calendar.
+    differently to other days on a calendar. The
+    default is `Date.utc_today/0`
 
   * `:day_names` is a list of 2-tuples that
     map the day of the week to a localised day
@@ -61,13 +64,13 @@ defmodule Cldr.Calendar.Formatter.Options do
   """
   @valid_options [
     :backend,
+    :locale,
     :calendar,
     :caption,
     :class,
     :day_names,
     :formatter,
     :id,
-    :locale,
     :number_system,
     :private,
     :territory,
@@ -98,11 +101,11 @@ defmodule Cldr.Calendar.Formatter.Options do
   alias Cldr.Number
 
   @doc false
-  def validate_options(options) do
+  def validate_options(options) when is_list(options) do
     options =
       Enum.reduce_while(@valid_options, options, fn option, options ->
         case validate_option(option, options, Keyword.get(options, option)) do
-          {:ok, value} -> {:cont, Map.put(options, option, value)}
+          {:ok, value} -> {:cont, Keyword.put(options, option, value)}
           other -> {:halt, other}
         end
       end)
@@ -204,6 +207,30 @@ defmodule Cldr.Calendar.Formatter.Options do
 
   def validate_option(:class, _options, class) do
     {:ok, class}
+  end
+
+  def validate_option(:caption, _options, nil) do
+    {:ok, nil}
+  end
+
+  def validate_option(:caption, _options, caption) do
+    {:ok, caption}
+  end
+
+  def validate_option(:id, _options, nil) do
+    {:ok, nil}
+  end
+
+  def validate_option(:id, _options, id) do
+    {:ok, id}
+  end
+
+  def validate_option(:private, _options, nil) do
+    {:ok, nil}
+  end
+
+  def validate_option(:private, _options, private) do
+    {:ok, private}
   end
 
   def validate_option(:day_names, options, nil) do
