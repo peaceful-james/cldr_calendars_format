@@ -97,17 +97,20 @@ defmodule Cldr.Calendar.Formatter.Options do
 
   alias Cldr.Number
 
-  @default_format_module Cldr.Calendar.Formatter.HTML.Basic
-  @default_calendar_class "cldr_calendar"
-
   @doc false
   def validate_options(options) do
-    reduce_while(@valid_options, %__MODULE__{}, fn option, options ->
-      case validate_option(option, options, Keyword.get(options, option)) do
-        {:ok, value} -> {:cont, Map.put(options, option, value)}
-        other -> {:halt, other}
-      end
-    end)
+    options =
+      Enum.reduce_while(@valid_options, options, fn option, options ->
+        case validate_option(option, options, Keyword.get(options, option)) do
+          {:ok, value} -> {:cont, Map.put(options, option, value)}
+          other -> {:halt, other}
+        end
+      end)
+
+    case options do
+      {:error, _} = error -> error
+      valid_options -> {:ok, struct(__MODULE__, valid_options)}
+    end
   end
 
   def validate_option(:calendar, _options, nil) do
@@ -125,13 +128,15 @@ defmodule Cldr.Calendar.Formatter.Options do
   end
 
   def validate_option(:number_system, options, nil) do
-    {:ok, locale} = validate_option(:locale, options, Keyword.get(options, :locale))
-    {:ok, Number.System.number_system_from_locale(locale)}
+    locale = Keyword.get(options, :locale)
+    backend = Keyword.get(options, :backend)
+
+    {:ok, Number.System.number_system_from_locale(locale, backend)}
   end
 
   def validate_option(:number_system, options, number_system) do
-    {:ok, locale} = validate_option(:locale, options, Keyword.get(options, :locale))
-    {:ok, backend} = validate_option(:backend, options, Keyword.get(options, :backend))
+    locale = Keyword.get(options, :locale)
+    backend = Keyword.get(options, :backend)
 
     with {:ok, number_system} <- Number.validate_number_system(locale, number_system, backend) do
       {:ok, number_system}
@@ -139,7 +144,8 @@ defmodule Cldr.Calendar.Formatter.Options do
   end
 
   def validate_option(:territory, options, nil) do
-    {:ok, locale} = validate_option(:locale, options, Keyword.get(options, :locale))
+    locale = Keyword.get(options, :locale)
+
     {:ok, Cldr.Locale.territory_from_locale(locale)}
   end
 
@@ -147,63 +153,64 @@ defmodule Cldr.Calendar.Formatter.Options do
     {:ok, Cldr.default_backend()}
   end
 
-  def validate_option(:backend, _options, nil) do
+  def validate_option(:backend, _options, backend) do
     with {:ok, backend} <- Cldr.validate_backend(backend) do
       {:ok, backend}
     end
   end
 
   def validate_option(:formatter, _options, nil) do
-    {:ok, Cldr.Calendar.Formatter.default_formatter()}
+    {:ok, Cldr.Calendar.Format.default_formatter_module()}
   end
 
-  def validate_option(:formatter, options, formatter) do
-    if Code.ensure_loaded?(module) && function_exported?(formatter, :format_year, 3) do
+  def validate_option(:formatter, _options, formatter) do
+    if Cldr.Calendar.Format.formatter_module?(formatter) do
       {:ok, formatter}
     else
-      {:error, Cldr.Calendar.Formatter.unknown_formatter_error(formatter)}
+      {:error, Cldr.Calendar.Format.invalid_formatter_error(formatter)}
     end
   end
 
   def validate_option(:locale, options, nil) do
-    {:ok, backend} = validate_option(:backend, options, Keyword.get(options, :backend))
+    backend = Keyword.get(options, :backend)
+
     {:ok, backend.get_locale()}
   end
 
   def validate_option(:locale, options, locale) do
-    {:ok, backend} = validate_option(:backend, options, Keyword.get(options, :backend))
+    backend = Keyword.get(options, :backend)
 
     with {:ok, locale} <- Cldr.validate_locale(locale, backend) do
       {:ok, locale}
     end
   end
 
-  defp validate_option(:today, options, nil) do
+  def validate_option(:today, _options, nil) do
     {:ok, Date.utc_today}
   end
 
-  defp validate_today(:today, options, date) do
+  def validate_option(:today, _options, date) do
     if is_map(date) and Map.has_key?(date, :year) and
         Map.has_key?(date, :month) and Map.has_key?(date, :day) do
           {:ok, date}
     else
-      {:error, Cldr.Date.invalid_date_error(date)}
+      {:error, Cldr.Calendar.Format.invalid_date_error(date)}
     end
   end
 
-  defp validate_option(:class, options, nil) do
-    {:ok, @default_calendar_class}
+  def validate_option(:class, _options, nil) do
+    {:ok, Cldr.Calendar.Format.default_calendar_css_class()}
   end
 
-  defp validate_option(:class, options, class) do
+  def validate_option(:class, _options, class) do
     {:ok, class}
   end
 
-  defp validate_option(:day_names, options, nil) do
-    {:ok, backend} = validate_option(:backend, options, Keyword.get(options, :backend))
-    {:ok, locale} = validate_option(:calendar, options, Keyword.get(options, :calendar))
-    {:ok, date} = Date.new(2000, 1, 1, Keyword.get(options, :calendar))
+  def validate_option(:day_names, options, nil) do
+    backend = Keyword.get(options, :backend)
+    locale = Keyword.get(options, :locale)
 
+    {:ok, date} = Date.new(2000, 1, 1, Keyword.get(options, :calendar))
     {:ok, Cldr.Calendar.localize(date, :days_of_week, backend: backend, locale: locale)}
   end
 end

@@ -7,6 +7,20 @@ defmodule Cldr.Calendar.Format do
   alias Cldr.Calendar
   alias Cldr.Calendar.Formatter.Options
 
+  @default_format_module Cldr.Calendar.Formatter.HTML.Basic
+  def default_formatter_module do
+    @default_format_module
+  end
+
+  @default_calendar_css_class "cldr_calendar"
+  def default_calendar_css_class do
+    @default_calendar_css_class
+  end
+
+  def formatter_module?(formatter) do
+    Code.ensure_loaded?(formatter) && function_exported?(formatter, :format_year, 3)
+  end
+
   @doc """
   Format one calendar year
 
@@ -152,5 +166,13 @@ defmodule Cldr.Calendar.Format do
     for date <- week do
       formatter.format_day(date, year, month, options)
     end
+  end
+
+  def invalid_formatter_error(formatter) do
+    {Cldr.Calendar.Formatter.UnknownFormatterError, "Invalid formatter #{inspect formatter}"}
+  end
+
+  def invalid_date_error(date) do
+    {Cldr.Calendar.Formatter.InvalidDateError, "Invalid formatter #{inspect date}"}
   end
 end
