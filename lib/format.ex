@@ -39,11 +39,11 @@ defmodule Cldr.Calendar.Format do
 
   ## Examples
 
-    Cldr.Calendar.Format.year(2019)
+      => Cldr.Calendar.Format.year(2019)
 
-    Cldr.Calendar.Format.year(2019, formatter: Cldr.Calendar.Formatter.Markdown)
+      => Cldr.Calendar.Format.year(2019, formatter: Cldr.Calendar.Formatter.Markdown)
 
-    Cldr.Calendar.Format.year(2019, formatter: Cldr.Calendar.Formatter.Markdown, locale: "fr"
+      => Cldr.Calendar.Format.year(2019, formatter: Cldr.Calendar.Formatter.Markdown, locale: "fr"
 
   """
   @spec year(Date.year(), Options.t | Keyword.t) :: any()
@@ -92,11 +92,11 @@ defmodule Cldr.Calendar.Format do
 
   ## Examples
 
-    Cldr.Calendar.Format.month(2019, 4)
+      => Cldr.Calendar.Format.month(2019, 4)
 
-    Cldr.Calendar.Format.month(2019, 4, formatter: Cldr.Calendar.Formatter.HTML.Basic)
+      => Cldr.Calendar.Format.month(2019, 4, formatter: Cldr.Calendar.Formatter.HTML.Basic)
 
-    Cldr.Calendar.Format.month(2019, 4, formatter: Cldr.Calendar.Formatter.Markdown, locale: "fr"
+      => Cldr.Calendar.Format.month(2019, 4, formatter: Cldr.Calendar.Formatter.Markdown, locale: "fr"
 
   """
   @spec month(Date.year(), Date.month(), Options.t | Keyword.t) :: any()
