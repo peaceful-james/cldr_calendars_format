@@ -16,7 +16,7 @@ defmodule Cldr.Calendar.Formatter do
   called if required.
 
   """
-  alias Cldr.Calendar.Format.Options
+  alias Cldr.Calendar.Formatter.Options
 
   @doc """
   Returns the formatted calendar for a year
@@ -42,7 +42,7 @@ defmodule Cldr.Calendar.Formatter do
   """
   @callback format_year(
               formatted_months :: String.t(),
-              year :: Date.year(),
+              year :: Calendar.year(),
               options :: Keyword.t() | Options.t()
             ) :: any()
 
@@ -73,8 +73,8 @@ defmodule Cldr.Calendar.Formatter do
   """
   @callback format_month(
               formatted_weeks :: String.t(),
-              year :: Date.year(),
-              month :: Date.month(),
+              year :: Calendar.year(),
+              month :: Calendar.month(),
               options :: Keyword.t() | Options.t()
             ) :: any()
 
@@ -107,9 +107,9 @@ defmodule Cldr.Calendar.Formatter do
   """
   @callback format_week(
               formatted_days :: String.t(),
-              year :: Date.year(),
-              month :: Date.month(),
-              week_number :: {Date.year(), pos_integer},
+              year :: Calendar.year(),
+              month :: Calendar.month(),
+              week_number :: {Calendar.year(), pos_integer},
               options :: Options.t()
             ) :: any()
 
@@ -138,8 +138,8 @@ defmodule Cldr.Calendar.Formatter do
   """
   @callback format_day(
               date :: Date.t(),
-              year :: Date.year(),
-              month :: Date.month(),
+              year :: Calendar.year(),
+              month :: Calendar.month(),
               options :: Options.t()
             ) :: any()
 

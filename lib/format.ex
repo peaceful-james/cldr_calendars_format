@@ -4,7 +4,6 @@ defmodule Cldr.Calendar.Format do
 
   """
 
-  alias Cldr.Calendar
   alias Cldr.Calendar.Formatter.Options
 
   @default_format_module Cldr.Calendar.Formatter.HTML.Basic
@@ -46,7 +45,7 @@ defmodule Cldr.Calendar.Format do
       => Cldr.Calendar.Format.year(2019, formatter: Cldr.Calendar.Formatter.Markdown, locale: "fr"
 
   """
-  @spec year(Date.year(), Options.t | Keyword.t) :: any()
+  @spec year(Calendar.year(), Options.t() | Keyword.t()) :: any()
 
   def year(year, options \\ [])
 
@@ -99,7 +98,7 @@ defmodule Cldr.Calendar.Format do
       => Cldr.Calendar.Format.month(2019, 4, formatter: Cldr.Calendar.Formatter.Markdown, locale: "fr"
 
   """
-  @spec month(Date.year(), Date.month(), Options.t | Keyword.t) :: any()
+  @spec month(Calendar.year(), Calendar.month(), Options.t | Keyword.t) :: any()
 
   def month(year, month, options \\ [])
 
@@ -147,14 +146,14 @@ defmodule Cldr.Calendar.Format do
 
     for i <- range do
       week
-      |> Calendar.plus(:weeks, i)
+      |> Cldr.Calendar.plus(:weeks, i)
       |> week(year, month, options)
     end
   end
 
   defp week(week, year, month, options) do
     %Options{formatter: formatter} = options
-    week_number = Calendar.week_of_year(week.first)
+    week_number = Cldr.Calendar.week_of_year(week.first)
 
     days(week, year, month, options)
     |> formatter.format_week(year, month, week_number, options)

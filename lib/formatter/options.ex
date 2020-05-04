@@ -83,7 +83,7 @@ defmodule Cldr.Calendar.Formatter.Options do
   Formatter options
 
   """
-  @type  t :: %__MODULE__{
+  @type t :: %__MODULE__{
     calendar: module(),
     number_system: Cldr.Number.System.system_name(),
     territory: atom() | String.t(),

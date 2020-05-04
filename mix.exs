@@ -1,7 +1,7 @@
 defmodule Cldr.Calendar.Format.MixProject do
   use Mix.Project
 
-  @version "0.4.0-dev"
+  @version "0.4.0-rc.0"
 
   def project do
     [
@@ -62,14 +62,14 @@ defmodule Cldr.Calendar.Format.MixProject do
 
   defp deps do
     [
-      {:ex_cldr, path: "../cldr", override: true},
-      {:ex_cldr_numbers, github: "elixir-cldr/cldr_numbers"},
-      {:ex_cldr_calendars, github: "elixir-cldr/cldr_calendars"},
-      {:cldr_utils, github: "elixir-cldr/cldr_utils", override: true},
+
+      {:ex_cldr_numbers, "~> 2.13-rc"},
+      {:ex_cldr_calendars, "~> 1.8-rc"},
+
       {:nimble_csv, "~> 0.5", only: [:dev, :test, :release]},
       {:jason, "~> 1.0"},
       {:ex_doc, "~> 0.18", only: [:release, :dev]},
-      {:dialyxir, "~> 1.0.0-rc", only: [:dev], runtime: false}
+      {:dialyxir, "~> 1.0-rc", only: [:dev], runtime: false}
     ]
   end
 
