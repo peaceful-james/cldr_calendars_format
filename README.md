@@ -38,7 +38,7 @@ This example shows that the first day of the week for the `Cldr.Calendar.NRF` ca
 
 The `Cldr.Calendar.Formatter.Markdown` formatter is a simple formatter.  Using the simple example for April 2019 the example shows:
 ```elixir
-iex(15)> Cldr.Calendar.Format.month 2019, 4, formatter: Cldr.Calendar.Formatter.Markdown
+iex> Cldr.Calendar.Format.month 2019, 4, formatter: Cldr.Calendar.Formatter.Markdown
 "### April 2019\n\nMon | Tue | Wed | Thu | Fri | Sat | Sun\n :---:  |  :---:  |  :---:  |  :---:  |  :---:  |  :---:  |  :---: \n**1** | **2** | **3** | **4** | **5** | **6** | **7**\n**8** | **9** | **10** | **11** | **12** | **13** | **14**\n**15** | **16** | **17** | **18** | **19** | **20** | **21**\n**22** | **23** | **24** | **25** | **26** | **27** | **28**\n**29** | **30** | 1 | 2 | 3 | 4 | 5\n6 | 7 | 8 | 9 | 10 | 11 | 12\n"
 ```
 Which renders as (heading omitted):
@@ -57,7 +57,7 @@ Mon | Tue | Wed | Thu | Fri | Sat | Sun
 Since [ex_cldr_calendars_format](https://hex.pm/packages/ex_cldr_calendars_format) is built upon [ex_cldr](https://hex.pm/packages/ex_cldr), calendars can be localised.  Localised formatting understands the weekend and weekdays for a given locale or territory and can use the default of native number system (which may use localised characters for numbers).  For example, using the locale for Saudi Arabia we can see:
 
 ```elixir
-iex(17)> markdown = Cldr.Calendar.Format.month 2019, 4, formatter: Cldr.Calendar.Formatter.Markdown, locale: "ar-SA"
+iex> markdown = Cldr.Calendar.Format.month 2019, 4, formatter: Cldr.Calendar.Formatter.Markdown, locale: "ar-SA"
 "### أبريل ٢٠١٩\n\nالاثنين | الثلاثاء | الأربعاء | الخميس | الجمعة | السبت | الأحد\n :---:  |  :---:  |  :---:  |  :---:  |  :---:  |  :---:  |  :---: \n**١** | **٢** | **٣** | **٤** | **٥** | **٦** | **٧**\n**٨** | **٩** | **١٠** | **١١** | **١٢** | **١٣** | **١٤**\n**١٥** | **١٦** | **١٧** | **١٨** | **١٩** | **٢٠** | **٢١**\n**٢٢** | **٢٣** | **٢٤** | **٢٥** | **٢٦** | **٢٧** | **٢٨**\n**٢٩** | **٣٠** | ١ | ٢ | ٣ | ٤ | ٥\n٦ | ٧ | ٨ | ٩ | ١٠ | ١١ | ١٢\n"
 ```
 Which renders as (heading omitted):
