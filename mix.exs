@@ -1,7 +1,7 @@
 defmodule Cldr.Calendar.Format.MixProject do
   use Mix.Project
 
-  @version "0.4.0-rc.0"
+  @version "0.4.0"
 
   def project do
     [
@@ -63,8 +63,8 @@ defmodule Cldr.Calendar.Format.MixProject do
   defp deps do
     [
 
-      {:ex_cldr_numbers, "~> 2.13-rc"},
-      {:ex_cldr_calendars, "~> 1.8-rc"},
+      {:ex_cldr_numbers, "~> 2.13"},
+      {:ex_cldr_calendars, "~> 1.8"},
 
       {:nimble_csv, "~> 0.5", only: [:dev, :test, :release]},
       {:jason, "~> 1.0"},
