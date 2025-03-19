@@ -45,7 +45,7 @@ defmodule Cldr.Calendar.Format.MixProject do
   defp package do
     [
       maintainers: ["Kip Cole"],
-      licenses: ["Apache 2.0"],
+      licenses: ["Apache-2.0"],
       logo: "logo.png",
       links: links(),
       files: [
