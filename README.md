@@ -106,7 +106,7 @@ This package can be installed by adding `ex_cldr_calendars_format` to your list 
 def deps do
   [
     ...
-    {:ex_cldr_calendars_format, "~> 0.1.0"}
+    {:ex_cldr_calendars_format, "~> 1.0"}
   ]
 end
 ```

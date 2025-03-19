@@ -67,14 +67,15 @@ defmodule Cldr.Calendar.Format.Test do
 
     assert nrf[:options].day_names ==
              [
-               {7, "Sun"},
-               {1, "Mon"},
-               {2, "Tue"},
-               {3, "Wed"},
-               {4, "Thu"},
-               {5, "Fri"},
-               {6, "Sat"}
+               {1, "Sun"},
+               {2, "Mon"},
+               {3, "Tue"},
+               {4, "Wed"},
+               {5, "Thu"},
+               {6, "Fri"},
+               {7, "Sat"}
              ]
+
   end
 
   test "Weeks that don't start on Monday" do
@@ -98,7 +99,7 @@ defmodule Cldr.Calendar.Format.Test do
       |> hd
       |> Map.get(:days)
       |> hd
-      |> Cldr.Calendar.day_of_week
+      |> Cldr.Calendar.day_of_week(:monday)
 
     assert first_day == 7
   end

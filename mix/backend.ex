@@ -5,6 +5,7 @@ defmodule MyApp.Cldr do
   use Cldr,
     providers: [Cldr.Calendar, Cldr.Number],
     locales: ["en", "fr", "en-GB", "en-AU", "en-CA", "ar", "he"],
-    generate_docs: false
+    generate_docs: false,
+    precompile_number_formats: ["####"]
 
 end

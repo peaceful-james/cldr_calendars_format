@@ -153,7 +153,7 @@ defmodule Cldr.Calendar.Formatter.Options do
   end
 
   def validate_option(:backend, _options, nil) do
-    {:ok, Cldr.default_backend()}
+    {:ok, Cldr.default_backend!()}
   end
 
   def validate_option(:backend, _options, backend) do

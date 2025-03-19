@@ -112,7 +112,7 @@ defmodule Cldr.Calendar.Format do
     %Options{calendar: calendar} = options
 
     with %Date.Range{first: date} <- calendar.month(year, month) do
-      month(year, month, date, calendar.calendar_base, options)
+      month(year, month, date, calendar.calendar_base(), options)
     end
   end
 
