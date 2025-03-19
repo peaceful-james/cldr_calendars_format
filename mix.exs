@@ -92,7 +92,7 @@ defmodule Cldr.Calendar.Format.MixProject do
         "LICENSE.md",
         "CHANGELOG.md"
       ],
-      skip_undefined_reference_warnings_on: ["changelog"]
+      skip_undefined_reference_warnings_on: ["CHANGELOG.md", "README.md"]
     ]
   end
 

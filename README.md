@@ -25,7 +25,7 @@ From this example we can deduce that:
 
 ### Formatting a week-based calendar
 
-Week-based calendars, like [ISO Week]() and [National Retail Federation](), don't have months in the traditional sense however they can be formatted in a month-like fashion.  The formatter `Cldr.Calendar.Formatter.HTML.Week` is different from `Cldr.Calendar.Formatter.HTML.Basic` in that is includes the week number as well as the dates.  It also converts each date into the `Cldr.Calendar.Gregorian` calendar for familiar formatting.  For example:
+Week-based calendars, like [ISO Week](https://en.wikipedia.org/wiki/ISO_week_date) and [National Retail Federation](https://nrf.com/resources/4-5-4-calendar), don't have months in the traditional sense however they can be formatted in a month-like fashion.  The formatter `Cldr.Calendar.Formatter.HTML.Week` is different from `Cldr.Calendar.Formatter.HTML.Basic` in that is includes the week number as well as the dates.  It also converts each date into the `Cldr.Calendar.Gregorian` calendar for familiar formatting.  For example:
 
 ```elixir
 iex> Cldr.Calendar.Format.month 2019, 4, calendar: Cldr.Calendar.NRF, formatter: Cldr.Calendar.Formatter.HTML.Week
