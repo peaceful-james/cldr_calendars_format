@@ -98,7 +98,7 @@ defmodule Cldr.Calendar.Format do
       => Cldr.Calendar.Format.month(2019, 4, formatter: Cldr.Calendar.Formatter.Markdown, locale: "fr"
 
   """
-  @spec month(Calendar.year(), Calendar.month(), Options.t | Keyword.t) :: any()
+  @spec month(Calendar.year(), Calendar.month(), Options.t() | Keyword.t()) :: any()
 
   def month(year, month, options \\ [])
 
@@ -168,10 +168,10 @@ defmodule Cldr.Calendar.Format do
   end
 
   def invalid_formatter_error(formatter) do
-    {Cldr.Calendar.Formatter.UnknownFormatterError, "Invalid formatter #{inspect formatter}"}
+    {Cldr.Calendar.Formatter.UnknownFormatterError, "Invalid formatter #{inspect(formatter)}"}
   end
 
   def invalid_date_error(date) do
-    {Cldr.Calendar.Formatter.InvalidDateError, "Invalid formatter #{inspect date}"}
+    {Cldr.Calendar.Formatter.InvalidDateError, "Invalid formatter #{inspect(date)}"}
   end
 end

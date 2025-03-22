@@ -7,5 +7,4 @@ defmodule MyApp.Cldr do
     locales: ["en", "fr", "en-GB", "en-AU", "en-CA", "ar", "he"],
     generate_docs: false,
     precompile_number_formats: ["####"]
-
 end

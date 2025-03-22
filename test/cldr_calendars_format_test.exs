@@ -75,7 +75,6 @@ defmodule Cldr.Calendar.Format.Test do
                {6, "Fri"},
                {7, "Sat"}
              ]
-
   end
 
   test "Weeks that don't start on Monday" do
@@ -88,9 +87,9 @@ defmodule Cldr.Calendar.Format.Test do
     end
 
     options = [
-        formatter: Cldr.Calendar.Test.Formatter,
-        caption: "My Caption",
-        calendar: MyApp.Calendar.US
+      formatter: Cldr.Calendar.Test.Formatter,
+      caption: "My Caption",
+      calendar: MyApp.Calendar.US
     ]
 
     first_day =

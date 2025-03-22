@@ -46,7 +46,6 @@ defmodule Cldr.Calendar.Formatter do
               options :: Keyword.t() | Options.t()
             ) :: any()
 
-
   @doc """
   Returns the formatted calendar for a month
 
@@ -142,5 +141,4 @@ defmodule Cldr.Calendar.Formatter do
               month :: Calendar.month(),
               options :: Options.t()
             ) :: any()
-
 end

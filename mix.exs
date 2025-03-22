@@ -65,7 +65,6 @@ defmodule Cldr.Calendar.Format.MixProject do
       {:magical, "~> 1.0"},
       {:ex_cldr_numbers, "~> 2.34"},
       {:ex_cldr_calendars, "~> 2.1"},
-
       {:nimble_csv, "~> 0.5", only: [:dev, :test, :release]},
       {:jason, "~> 1.0"},
       {:ex_doc, "~> 0.18", only: [:release, :dev]},

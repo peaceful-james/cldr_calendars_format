@@ -84,19 +84,19 @@ defmodule Cldr.Calendar.Formatter.Options do
 
   """
   @type t :: %__MODULE__{
-    calendar: module(),
-    number_system: Cldr.Number.System.system_name(),
-    territory: atom() | String.t(),
-    locale: Cldr.LanguageTag.t(),
-    formatter: module(),
-    backend: module(),
-    caption: String.t | nil,
-    class: String.t | nil,
-    id: String.t | nil,
-    today: Date.t(),
-    private: any(),
-    day_names: [{1..7, String.t}]
-  }
+          calendar: module(),
+          number_system: Cldr.Number.System.system_name(),
+          territory: atom() | String.t(),
+          locale: Cldr.LanguageTag.t(),
+          formatter: module(),
+          backend: module(),
+          caption: String.t() | nil,
+          class: String.t() | nil,
+          id: String.t() | nil,
+          today: Date.t(),
+          private: any(),
+          day_names: [{1..7, String.t()}]
+        }
 
   alias Cldr.Number
 
@@ -189,13 +189,13 @@ defmodule Cldr.Calendar.Formatter.Options do
   end
 
   def validate_option(:today, _options, nil) do
-    {:ok, Date.utc_today}
+    {:ok, Date.utc_today()}
   end
 
   def validate_option(:today, _options, date) do
     if is_map(date) and Map.has_key?(date, :year) and
-        Map.has_key?(date, :month) and Map.has_key?(date, :day) do
-          {:ok, date}
+         Map.has_key?(date, :month) and Map.has_key?(date, :day) do
+      {:ok, date}
     else
       {:error, Cldr.Calendar.Format.invalid_date_error(date)}
     end
