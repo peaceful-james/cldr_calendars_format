@@ -62,7 +62,7 @@ defmodule Cldr.Calendar.Format.MixProject do
 
   defp deps do
     [
-
+      {:magical, "~> 1.0"},
       {:ex_cldr_numbers, "~> 2.34"},
       {:ex_cldr_calendars, "~> 2.1"},
 
